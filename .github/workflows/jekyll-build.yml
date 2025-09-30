@@ -28,16 +28,24 @@ jobs:
       - name: Build site with Jekyll
         run: bundle exec jekyll build --config _config.yml
 
-      - name: Show generated files (for debug)
-        run: ls -la ./_site || true
+      - name: Debug list _site
+        run: |
+          echo "Top of _site:"
+          ls -la ./_site || true
+          echo "Sample files:"
+          find ./_site -maxdepth 2 -type f | sed -n '1,200p' || true
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 指向生成目录（action 会把目录内容展开到 gh-pages 根）
           publish_dir: ./_site
           publish_branch: gh-pages
 
+      # 可选：触发 Vercel Deploy Hook（如果你在 Vercel 创建了 deploy hook，替换下面 URL）
       - name: Trigger Vercel deploy
+        if: success()
         run: |
           curl -X POST -sS "https://api.vercel.com/v1/integrations/deploy/prj_kenzvQ9CUapbDLMkWo9lCBy7Oxdu/a4DJ7pyhDA" || true
+
