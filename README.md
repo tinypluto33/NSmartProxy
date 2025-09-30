@@ -1,4 +1,8 @@
-
+---
+title: README
+layout: default
+permalink: /README.html
+---
 
 <img src="http://2017studio.oss-accelerate.aliyuncs.com/NSmartProxyNew.png">
 
