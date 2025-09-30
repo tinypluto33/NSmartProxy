@@ -1,3 +1,5 @@
 source "https://rubygems.org"
-gem "jekyll", "~> 4.2"
+gem "jekyll", "~> 4.4"
 gem "bundler", "~> 2.0"
+gem "jekyll-theme-cayman"
+gem "webrick"
