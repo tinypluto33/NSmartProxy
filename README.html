@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>README</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="README" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="README" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"README","url":"/README.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">README</h1>
+      <h2 class="project-tagline"></h2>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <p><img src="http://2017studio.oss-accelerate.aliyuncs.com/NSmartProxyNew.png" /></p>
+
+<p><a href="https://github.com/tmoonlight/NSmartProxy/releases"><img src="https://img.shields.io/github/release/tmoonlight/NSmartProxy.svg?logoColor=%21%5BGitHub%20release%5D%28https%3A%2F%2Fimg.shields.io%2Fgithub%2Frelease%2Ftmoonlight%2FNSmartProxy.svg%29" alt="GitHub
+release" /></a>
+<a href="https://github.com/tmoonlight/NSmartProxy/blob/master/LICENSE"><img src="https://img.shields.io/github/license/tmoonlight/NSmartProxy.svg" alt="GitHub" /></a>
+<a href="https://dev.azure.com/tmoonlight/NSmartProxy/_build/latest?definitionId=1&amp;branchName=master"><img src="https://dev.azure.com/tmoonlight/NSmartProxy/_apis/build/status/tmoonlight.NSmartProxy?branchName=master" alt="Build
+Status" /></a>
+<br />
+<img src="https://img.shields.io/docker/pulls/tmoonlight/nspclient?label=nspclient%20docker%20pulls" alt="Docker Pulls" />
+<img src="https://img.shields.io/docker/pulls/tmoonlight/nspserver?label=nspserver%20docker%20pulls" alt="Docker Pulls" /><br />
+中文版 |
+<a href="https://github.com/tmoonlight/NSmartProxy/blob/master/README_EN.md">English</a></p>
+
+<h1 id="nsmartproxy">NSmartProxy</h1>
+
+<h4 id="什么是nsmartproxy">什么是NSmartProxy？<br /></h4>
+
+<p>NSmartProxy是一款免费的内网穿透工具。<br />
+使用中如果有任何问题和建议，可以<a href="https://gitter.im/tmoonlight/NSmartProxy">点击这里加入Gitter群组</a>或者<a href="//shang.qq.com/wpa/qunwpa?idkey=139dc3d01be5cc7ac3226c022d832b8ddcc4ec4b64d8755cd4f5c669994970c7">点击这里加入QQ群
+（群号：813170640）</a>我们一起讨论。</p>
+
+<h2 id="目录">目录</h2>
+<ul>
+  <li><a href="#特点">特点</a></li>
+  <li><a href="#运行原理">运行原理</a></li>
+  <li><a href="#客户端安装">客户端安装</a>
+    <ul>
+      <li><a href="#启动准备">启动准备</a></li>
+      <li><a href="#使用方法">使用方法</a></li>
+    </ul>
+  </li>
+  <li><a href="#服务端安装">服务端安装</a>
+    <ul>
+      <li><a href="#启动准备-1">启动准备</a></li>
+      <li><a href="#使用方法-1">使用方法</a></li>
+    </ul>
+  </li>
+  <li><a href="#使用案例">使用案例</a></li>
+</ul>
+
+<h2 id="特点">特点</h2>
+
+<ol>
+  <li>跨平台，客户端和服务端均可运行在MacOS，Linux，Windows系统上；<br /></li>
+  <li>使用方便，配置简单；<br /></li>
+  <li>多端映射，只需安装一个NSmartProxy客户端可映射整个局域网内的多种服务；</li>
+  <li>支持TCP协议栈下的所有协议（已经经过测试的有FTP、Telnet、SMTP、HTTP/HTTPS、POP3、SMB、VNC、RDP。），以及相当一部分基于UDP的协议（已经经过测试的有DNS查询、mosh服务）。</li>
+</ol>
+
+<h2 id="运行原理">运行原理</h2>
+
+<p>NSmartProxy包含两个服务程序：<br /></p>
+<ul>
+  <li>服务端（NSmartProxy.ServerHost）：部署在外网，用来接收来自最终使用者和客户端的反向连接，并将它们进行相互转发。</li>
+  <li>客户端（NSmartProxyClient）：部署在内网，用来转发访问内网各种服务的请求以及响应。
+<img src="http://2017studio.oss-accelerate.aliyuncs.com/theo.png" /></li>
+</ul>
+
+<h2 id="客户端安装">客户端安装</h2>
+
+<p>NSmartProxy支持各种基于TCP和UDP服务的端口映射，下面以mstsc,iis,ftp以及mosh服务为例：<br /></p>
+
+<h3 id="启动准备">启动准备</h3>
+
+<p>NSmartProxy的客户端被打包成三种发布方式：第一种是跨平台包，需要预先安装<a href="https://dotnet.microsoft.com/download">.NET
+Core环境</a>。
+第二种是SCD包（包名带”scd”），无需安装.net环境，用户需要根据自己的平台和架构选择相应的压缩包。第三种是Windows窗体版本（包名带”winform”）：</p>
+<h4 id="windows">Windows</h4>
+<ol>
+  <li>确保客户端的环境在.NET Framework 4.6.1 以上。</li>
+  <li>下载最新的窗体版本https://github.com/tmoonlight/NSmartProxy/releases/download/v1.2_final4/nspclient_winform_v1.2_final4.zip</li>
+</ol>
+
+<h4 id="linux">Linux</h4>
+
+<ul>
+  <li>下载最新版本的NSmartProxyClient，以SCD发布下的linux x64系统为例：</li>
+</ul>
+
+<!-- -->
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://github.com/tmoonlight/NSmartProxy/releases/download/v1.2_final4/nspserver_scd_linux_v1.2_final4.zip
+</code></pre></div></div>
+
+<h4 id="macos">MacOS</h4>
+
+<ul>
+  <li>下载最新版本的NSmartProxyClient：</li>
+</ul>
+
+<!-- -->
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://github.com/tmoonlight/NSmartProxy/releases/download/v1.2_final4/nspclient_scd_osx_v1.2_final4.zip
+</code></pre></div></div>
+
+<h4 id="docker">Docker</h4>
+
+<ul>
+  <li>如果当前机器上已经有了docker运行环境，则无需安装运行时，直接拉取镜像即可运行，如下脚本在Docker
+CE 17.09下测试通过：</li>
+</ul>
+
+<!-- -->
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo docker pull tmoonlight/nspclient
+sudo docker run --name mynspclient -dit tmoonlight/nspclient
+</code></pre></div></div>
+
+<h3 id="使用方法">使用方法</h3>
+
+<ol>
+  <li>打开安装目录下的appsettings.json文件，配置服务地址，映射地址和端口（winform版本也兼容这种配置方式，也可直接进入界面配置）：<br /></li>
+</ol>
+
+<!-- -->
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "ProviderWebPort": 12309,         //服务器端口
+  "ProviderAddress": "2017studio.imwork.net",   //服务器地址
+
+  //反向代理客户端列表
+  "Clients": [
+    {//mstsc远程控制服务
+      "IP": "127.0.0.1",           //反向代理机器的ip
+      "TargetServicePort": "3389"  //反向代理服务的端口
+      "ConsumerPort":"3389"          //外网访问端口，如被占用，则会从20000开始按顺序分配端口
+    },
+    {//网站服务
+      "IP": "127.0.0.1",
+      "TargetServicePort": "80"
+    },
+    {//ftp服务
+      "IP": "127.0.0.1",
+      "TargetServicePort": "21",
+      "IsCompress" : true,      //表示启动传输压缩
+      "Description": "这是一个ftp协议。" //描述字段，方便用户在服务端界面识别
+    },
+    {//mosh服务 
+      "IP": "192.168.0.168",    //安装mosh服务的受控端地址
+      "TargetServicePort": "60002",
+      "ConsumerPort": "30002",  
+      "Protocol": "UDP"     //表示是一个UDP协议，如果不加以配置，则以TCP协议来转发
+    }
+  ]
+}
+</code></pre></div></div>
+
+<p><br /> 2. 运行NSmartProxy客户端 <br /></p>
+
+<ul>
+  <li>Linux：</li>
+</ul>
+
+<!-- -->
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    sudo unzip nspclient_scd_linux_v1.2.zip
+    cd nspclient_scd_linux_v1.2
+    chmod +x ./NSmartProxyClient
+    ./NSmartProxyClient
+</code></pre></div></div>
+
+<ul>
+  <li>MacOS：</li>
+</ul>
+
+<!-- -->
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    sudo unzip nspclient_osx_linux_v1.2.zip
+    cd nspclient_scd_osx_v1.2
+    chmod +x ./NSmartProxyClient
+    ./NSmartProxyClient
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>Windows： 解压后运行NSmartProxyWinform.exe即可:</p>
+
+    <p><img src="http://2017studio.oss-accelerate.aliyuncs.com/5.nspclientwinformrunning.gif" />
+<br /></p>
+  </li>
+</ul>
+
+<ol>
+  <li>后台运行：<br />
+您还可以将NSmartProxy客户端注册为一个后台服务，方法如下：</li>
+</ol>
+
+<ul>
+  <li>Windows：<br />
+    <ul>
+      <li>
+        <p>方法一<br />
+<img src="https://github.com/tmoonlight/NSmartProxy/raw/master/imgs/servicecn.png" /><br /></p>
+      </li>
+      <li>
+        <p>方法二<br /></p>
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rem 注册客户端windows服务
+.\NSmartProxyClient action:install
+</code></pre></div>        </div>
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rem 卸载客户端windows服务
+.\NSmartProxyClient action:uninstall
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>MacOS/Linux 暂略</li>
+</ul>
+
+<h4 id="客户端登陆">客户端登陆</h4>
+<p>默认情况下，客户端以<b>匿名登陆</b>，这种方式会在NSmartProxyServer端创建一个随机匿名用户（前提是服务端配置了允许<b>匿名登陆</b>），如果想显式使用特定用户登陆，需要在第一次运行时增加-u 用户名 -p 密码参数，程序会在当前目录生成一份凭据（.usercache）方便下次自动登陆。
+例如输入以下指令来生成一个用户名admin，密码admin123的凭据：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./NSmartProxyClient -u admin -p admin123
+</code></pre></div></div>
+<p>下次仅需使用：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./NSmartProxyClient
+</code></pre></div></div>
+<p>自动采用上次的admin用户登陆，如需恢复匿名登陆，则需要删除当前目录下的.usercache文件。</p>
+
+<ul>
+  <li>P.S：
+以上是客户端的配置方法，一般情况下，只要用我的免费服务（2017studio.imwork.net）即可进行内网映射了，如果你还想自己搭建服务端，请接着往下看。</li>
+</ul>
+
+<h2 id="服务端安装">服务端安装</h2>
+
+<p>这里介绍NSmartProxy服务端的安装方法（linux,windows,MacOS均适用）<br /></p>
+
+<h3 id="启动准备-1">启动准备</h3>
+
+<ul>
+  <li>首先你需要一台具备独立IP的服务器，以下安装过程均在此机器上执行：
+    <h4 id="linuxwindowsmacos">Linux/Windows/MacOS</h4>
+  </li>
+</ul>
+
+<ol>
+  <li>NSmartProxy的服务端程序被打包成两种发布方式。第一种是跨平台包，需要预先安装<a href="https://dotnet.microsoft.com/download">.NET
+Core环境</a>。
+第二种是SCD包（包名带”scd”），无需安装.net环境，用户需要根据自己的平台和架构选择相应的压缩包。<br /></li>
+  <li>下载最新版的NSmartProxy服务端：
+    <ul>
+      <li>Linux：
+<!-- -->
+wget https://github.com/tmoonlight/NSmartProxy/releases/download/v1.2_final4/nspserver_scd_linux_v1.2_final4.zip</li>
+    </ul>
+  </li>
+</ol>
+
+<ul>
+  <li>
+    <p>Windows：<br />
+下载https://github.com/tmoonlight/NSmartProxy/releases/download/v1.2_final4/nspserver_scd_win_v1.2_final4.zip</p>
+  </li>
+  <li>
+    <p>MacOS：
+<!-- --></p>
+
+    <p>wget https://github.com/tmoonlight/NSmartProxy/releases/download/v1.2_final4/nspserver_scd_osx_v1.2_final4.zip</p>
+  </li>
+</ul>
+
+<h4 id="docker-1">Docker</h4>
+
+<ul>
+  <li>无需安装运行时，直接拉取镜像即可运行，运行镜像时需要4组端口：配置端口，反向连接端口，API服务端口，以及使用端口，如下脚本在Docker
+CE 17.09下测试通过：</li>
+</ul>
+
+<!-- -->
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo docker pull tmoonlight/nspserver
+sudo docker run --name mynspserver -dit -p 7842:7842 -p 7841:7841 -p 12309:12309 -p 20000-20050 tmoonlight/nspserver
+</code></pre></div></div>
+
+<h3 id="使用方法-1">使用方法</h3>
+
+<ol>
+  <li>解压缩NSmartProxy服务端的压缩包，以下以SCD发布下的linux系统为例</li>
+</ol>
+
+<!-- -->
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unzip nspserver_scd_linux_v1.2_final4.zip
+</code></pre></div></div>
+
+<ol>
+  <li>打开安装目录下的appsettings.json文件，设置反向连接端口和配置服务端口，如果没有特殊需求，默认就好：<br /></li>
+</ol>
+
+<!-- -->
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "ReversePort": 7842, //反向连接端口
+  "ConfigPort": 7841, //配置服务端口
+  "WebAPIPort": 12309         //API服务端口
+}
+</code></pre></div></div>
+
+<ol>
+  <li>运行NSmartProxy <br /></li>
+</ol>
+
+<p>第一步 cd到安装目录 <br /> 第二步 执行以下命令</p>
+<ul>
+  <li>
+    <p>Linux/MacOS：
+<!-- -->
+  chmod +x ./NSmartProxy.ServerHost
+  ./NSmartProxy.ServerHost</p>
+  </li>
+  <li>
+    <p>Windows：
+点击 Win+R 打开运行窗口. 输入 “cmd” 按下Ctrl+Shift+Enter打开管理员身份运行的命令行窗口。cd到安装目录，运行如下指令：
+<!-- -->
+  NSmartProxy.ServerHost</p>
+  </li>
+</ul>
+
+<p>第三步 登陆http://ip:12309 进入web端，出厂用户密码为admin/admin</p>
+
+<p><img src="http://2017studio.oss-accelerate.aliyuncs.com/6.nspserverrunnning_1.gif" /></p>
+
+<p>第四步 进入服务端对用户进行各种管理操作</p>
+
+<p><img src="http://2017studio.oss-accelerate.aliyuncs.com/6.nspserverrunnning_2.gif" /></p>
+
+<h4 id="注册为后台服务">注册为后台服务<br /></h4>
+<p>NSmartProxy客户端和服务端均可以注册为一个后台服务，方法如下：</p>
+<ul>
+  <li>Windows
+  以管理员身份打开命令行后，cd到程序运行目录，运行以下指令进行服务的注册和卸载：</li>
+</ul>
+
+<!-- -->
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rem 注册服务端windows服务
+.\NSmartProxy.ServerHost action:install
+
+rem 卸载服务端windows服务
+.\NSmartProxy.ServerHost action:uninstall
+</code></pre></div></div>
+
+<ul>
+  <li>MacOS/Linux <br />
+可参考wiki: <a href="https://github.com/tmoonlight/NSmartProxy/wiki/How-To:-30%E7%A7%92%E4%BD%BF%E7%94%A8Linux%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1%E7%AB%AF">How To: 30秒使用Linux搭建一个内网穿透服务端</a></li>
+</ul>
+
+<h2 id="使用案例">使用案例</h2>
+<p>以上已经讲述了将内网的服务映射到外网的方法，还有更多有趣的用法等着你发掘：<br /></p>
+<ol>
+  <li>远程开机</li>
+  <li><a href="https://github.com/tmoonlight/NSmartProxy/wiki/How-To:-%E4%BD%BF%E7%94%A8NSmartProxy%E5%AE%9E%E7%8E%B0windows%E4%B8%8A%E7%9A%84%E8%BF%9C%E7%A8%8B%E5%8A%9E%E5%85%AC">使用windows远程控制操作办公室电脑</a></li>
+  <li>告别昂贵的vps，以极低的成本制作一个更强大的服务集群<br /></li>
+</ol>
+
+
+      <footer class="site-footer">
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </main>
+  </body>
+</html>
