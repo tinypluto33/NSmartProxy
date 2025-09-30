@@ -17,7 +17,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1' # 如需其它版本可改这里
+          ruby-version: '3.1'
 
       - name: Install Bundler
         run: gem install bundler
@@ -28,10 +28,16 @@ jobs:
       - name: Build site with Jekyll
         run: bundle exec jekyll build --config _config.yml
 
+      - name: Show generated files (for debug)
+        run: ls -la ./_site || true
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./_site
           publish_branch: gh-pages
-      - name: Trigger Vercel deploy run: curl -X POST -sS "https://api.vercel.com/v1/integrations/deploy/prj_kenzvQ9CUapbDLMkWo9lCBy7Oxdu/a4DJ7pyhDA" || true
+
+      - name: Trigger Vercel deploy
+        run: |
+          curl -X POST -sS "https://api.vercel.com/v1/integrations/deploy/prj_kenzvQ9CUapbDLMkWo9lCBy7Oxdu/a4DJ7pyhDA" || true
