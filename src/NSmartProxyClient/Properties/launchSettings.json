@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NSmartProxyClient": {
+      "commandName": "Project",
+      "commandLineArgs": "-p admin -pwd admin"
+    }
+  }
+}
